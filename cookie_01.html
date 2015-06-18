@@ -27,7 +27,7 @@ function readcookie() {
 
 function writecookie() {
 	var d = new Date();
-	var str = "test"+d.getTime()+"=aa";
+	var str = "cookie_id_"+d.getTime()+"=cookie_value";
 	d.setTime(d.getTime() + (365*24*60*60*1000));
     var expires = "expires="+d.toGMTString();
     var ck = str + "; "+ expires + "; path=/";
