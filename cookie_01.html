@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+<div>## Persistent Cookie ##</div>
+<script>
+window.onload = function () {
+    // add eventListener for tizenhwkey
+    document.addEventListener('tizenhwkey', function(e) {
+        try {
+            if (e.keyName == "back")
+                tizen.application.getCurrentApplication().exit();
+        } catch (ex) {
+            console.log("exception: "+ex);
+        }
+    });
+};
+
+function readcookie() {
+	box = document.querySelector('#log');
+	box.innerHTML += "<br>read : cookie = ["+document.cookie+"]";
+}
+
+function writecookie() {
+	var d = new Date();
+	var str = "test"+d.getTime()+"=aa";
+	d.setTime(d.getTime() + (365*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    var ck = str + "; "+ expires + "; path=/";
+    document.cookie = ck;   
+    box = document.querySelector('#log');
+	box.innerHTML += "<br>write : cookie = ["+document.cookie+"]" + " |  set=["+ck+"]";
+}
+
+function removeallcookie() {
+    try {
+        tizen.websetting.removeAllCookies(function(){
+            box = document.querySelector('#log');
+            box.innerHTML += "all cookies are removed..";
+        });
+    } catch(ex) {
+        console.log("exception: "+ex);
+    }
+}
+
+</script>
+<button onclick="writecookie()">write cookie</button>
+<button onclick="readcookie()"> read cookie </button>
+<button onclick="removeallcookie()"> remove all cookies </button>
+<div id='log'></div>
+</body>
+</html>
