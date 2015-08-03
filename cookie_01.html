@@ -22,18 +22,24 @@ window.onload = function () {
 
 function readcookie() {
 	box = document.querySelector('#log');
-	box.innerHTML += "<br>read : cookie = ["+document.cookie+"]";
+	box.innerHTML += "<p>read_cookie = ["+document.cookie+"]</p>";
 }
 
 function writecookie() {
-	var d = new Date();
-	var str = "cookie_id_"+d.getTime()+"=cookie_value";
-	d.setTime(d.getTime() + (365*24*60*60*1000));
-    var expires = "expires="+d.toGMTString();
-    var ck = str + "; "+ expires + "; path=/";
-    document.cookie = ck;   
+    document.cookie = "";
+    var date = new Date();
+    var datestr = date.getFullYear()+"_"+date.getMonth()+"_"+date.getDay()+"_"+date.getHours()+"_"+date.getMinutes()+"_"+date.getSeconds();
+    console.log("datestr:"+datestr);
+
+    var ckstr = "cookie_updated="+datestr;
+    
+    date.setTime(date.getTime() + (365*24*60*60*1000));
+    var ckexpires = "expires="+date.toGMTString();
+
+    var cookie = ckstr + "; "+ ckexpires + "; path=/";
+    document.cookie = cookie;   
     box = document.querySelector('#log');
-	box.innerHTML += "<br>write : cookie = ["+document.cookie+"]" + " |  set=["+ck+"]";
+    box.innerHTML += "<p>write_cookie : ["+document.cookie+"]</p>";
 }
 
 function removeallcookie() {
