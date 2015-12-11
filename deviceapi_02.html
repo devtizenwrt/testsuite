@@ -21,6 +21,7 @@ window.onload = function () {
     
     tizennamespace();
     currentapplication();
+    pepperapi();
 };
 function log(text) {
 	console.log(text);
@@ -43,8 +44,18 @@ function currentapplication() {
 		log("[FAIL] exception: "+ex);
 	}
 }
+function pepperapi() {
+	try {
+		var country = window.webapis.productinfo.getSystemConfig(
+			window.webapis.productinfo.ProductInfoConfigKey.CONFIG_KEY_SERVICE_COUNTRY);
+		log("[PASS] COUNTRY : "+country);
+	} catch(ex) {
+		log("[FAIL] exception: "+ex);
+	}
+}
 </script>
 <button onclick="tizennamespace()">Tizen API</button>
 <button onclick="currentapplication()">Application API</button>
+<button onclick="pepperapi()">Pepper API</button>
 </body>
 </html>
