@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tizen Web IDE - Tizen - Tizen basic Application</title>
+    <script type="text/javascript" language="javascript" src="$WEBAPIS/webapis/webapis.js"></script>
+</head>
+
+<body style="background-color: white;">
+<div>## Hosted App Device API & PEPPER API Allow ##</div>
+<script>
+window.onload = function () {
+    // add eventListener for tizenhwkey
+    document.addEventListener('tizenhwkey', function(e) {
+        try {
+            if (e.keyName == "back")
+                tizen.application.getCurrentApplication().exit();
+        } catch (ex) {
+            console.log("exception: "+ex);
+        }
+    });
+    
+    tizennamespace();
+    currentapplication();
+};
+function log(text) {
+	console.log(text);
+	var p = document.createElement("p");
+	p.innerHTML = text;
+	document.body.appendChild(p);
+}
+function tizennamespace() {
+	try {
+		log("window.tizen : "+(window.tizen));		
+	} catch(ex) {
+		log("[FAIL] exception: "+ex);
+	}
+}
+function currentapplication() {
+	try {
+		var app = tizen.application.getCurrentApplication();
+		log("[PASS] ApplicationID: " + app.appInfo.id);
+	} catch(ex) {
+		log("[FAIL] exception: "+ex);
+	}
+}
+</script>
+<button onclick="tizennamespace()">Tizen API</button>
+<button onclick="currentapplication()">Application API</button>
+</body>
+</html>
